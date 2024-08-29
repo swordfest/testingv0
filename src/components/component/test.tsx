@@ -90,11 +90,11 @@ export function test() {
                   <li>Practical workshops and hands-on labs</li>
                   <li>Networking opportunities with industry leaders</li>
                 </ul>
-                <p>
+                {/* <p>
                   Whether you're a developer, designer, product manager, or business leader, TechX has something for
                   you. Don't miss this opportunity to gain the knowledge and inspiration you need to create exceptional
                   digital experiences.
-                </p>
+                </p> */}
               </div>
             </div>
             <div className="space-y-1.5">
@@ -114,7 +114,7 @@ export function test() {
           <h3 className="text-xl font-bold">Sponsors</h3>
           <div className="grid grid-cols-2 items-center gap-4">
             <div className="mx-auto flex w-full items-center justify-center p-4 sm:p-8">
-              <img
+              {/* <img
                 alt="Logo"
                 className="aspect-[2/1] overflow-hidden rounded-lg object-contain object-center"
                 height="140"
@@ -129,7 +129,7 @@ export function test() {
                 height="140"
                 src="/placeholder.svg"
                 width="280"
-              />
+              /> */}
             </div>
           </div>
         </div>
@@ -137,7 +137,7 @@ export function test() {
           <h3 className="text-xl font-bold">Gallery</h3>
           <div className="grid grid-cols-2 gap-4">
             <div className="mx-auto aspect-video overflow-hidden rounded-lg">
-              <img
+              {/* <img
                 alt="Image"
                 className="object-cover object-center"
                 height="300"
@@ -160,7 +160,7 @@ export function test() {
                   objectFit: "cover",
                 }}
                 width="600"
-              />
+              /> */}
             </div>
           </div>
         </div>
@@ -299,7 +299,7 @@ export function test() {
 }
 
 
-function CalendarIcon(props) {
+function CalendarIcon(props: any) {
   return (
     <svg
       {...props}
@@ -322,7 +322,7 @@ function CalendarIcon(props) {
 }
 
 
-function HeartIcon(props) {
+function HeartIcon(props: any) {
   return (
     <svg
       {...props}
@@ -342,7 +342,7 @@ function HeartIcon(props) {
 }
 
 
-function TwitterIcon(props) {
+function TwitterIcon(props: any) {
   return (
     <svg
       {...props}
@@ -362,7 +362,7 @@ function TwitterIcon(props) {
 }
 
 
-function LinkedinIcon(props) {
+function LinkedinIcon(props: any) {
   return (
     <svg
       {...props}
@@ -384,7 +384,7 @@ function LinkedinIcon(props) {
 }
 
 
-function InstagramIcon(props) {
+function InstagramIcon(props: any) {
   return (
     <svg
       {...props}
