@@ -1,7 +1,7 @@
 /* eslint-disable @next/next/no-img-element */
 "use client";
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
 // import { Select } from "@/components/ui/select"
@@ -86,6 +86,17 @@ export default function Component() {
   const [selectedRooms, setSelectedRooms] = useState(
     roomTypes.map(() => false)
   );
+  const [expanded, setExpanded] = useState(false);
+
+  useEffect(() => {
+    if (document.documentElement.clientWidth < 480) {
+      setExpanded(false);
+    } else setExpanded(true);
+  }, [expanded]);
+
+  const toggleExpanded = () => {
+    setExpanded(!expanded);
+  };
 
   const toggleSelection = (roomIndex: number) => {
     setSelectedRooms((prev) =>
@@ -108,8 +119,8 @@ export default function Component() {
         <Button variant="destructive">Salir del Calendario</Button>
       </div>
 
-      <div className="p-4 border-b text-black">
-        <h2 className="text-lg font-semibold mb-2">Filtros</h2>
+      <div className={`p-4 border-b text-black lg:h-auto ${expanded ? 'h-auto' : 'h-12'}`}>
+        <h2 onClick={() => toggleExpanded()} className="text-lg font-semibold mb-2">Filtros</h2>
         <div className="flex flex-wrap gap-4">
           <div className="w-64">
             {/* <Select> */}
@@ -181,7 +192,13 @@ export default function Component() {
                     selectedRooms[index] ? "bg-gray-200" : "bg-gray-50"
                   }`}
                 >
-                  <div className={`min-w-32 min-h-20 bg-white rounded-xl shadow-lg p-4 flex flex-col gap-4 ${selectedRooms[index] ? 'border border-gray-500 hover:border-gray-500' : 'border hover:border-gray-300'}`}>
+                  <div
+                    className={`min-w-32 min-h-20 bg-white rounded-xl shadow-lg p-4 flex flex-col gap-4 ${
+                      selectedRooms[index]
+                        ? "border border-gray-500 hover:border-gray-500"
+                        : "border hover:border-gray-300"
+                    }`}
+                  >
                     <div className="flex items-center justify-between">
                       <div className="flex items-center gap-2">
                         <input
