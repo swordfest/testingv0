@@ -87,6 +87,7 @@ export default function Component() {
     roomTypes.map(() => false)
   );
   const [expanded, setExpanded] = useState(false);
+  const [selectedRoomIndex, setSelectedRoomIndex] = useState(0);
 
   useEffect(() => {
     if (document.documentElement.clientWidth < 480) {
@@ -216,8 +217,11 @@ export default function Component() {
                           type="checkbox"
                           name=""
                           id="roomSelected"
-                          className="w-4 h-4 cursor-pointer"
-                          onChange={() => toggleSelection(index)}
+                          className="w-4 h-4 cursor-pointer rounded-[4px]"
+                          onChange={() => {
+                            toggleSelection(index);
+                            setSelectedRoomIndex(index);
+                          }}
                         />
                         <div className="w-10 h-10 rounded relative bg-gray-200">
                           <Image fill={true} src={`/room.png`} alt="room" />
@@ -286,7 +290,7 @@ export default function Component() {
                     }`}
                   >
                     {/* <span className="w-full text-sm p-4">Configuración</span> */}
-                    <table className="w-full">
+                    <table className="w-full border-y-px border-x-0">
                       <thead>
                         <tr className="p-4">
                           <th className="p-0">
@@ -298,11 +302,11 @@ export default function Component() {
                         {configurations.map((conf, confIndex) => (
                           <tr key={confIndex}>
                             <th className="border border-b-px border-x-0 border-slate-300 border-dashed p-0">
-                              <div className="w-full min-h-10 bg-blue-50 font-normal flex flex-col items-center justify-center py-2">
-                                <div className="font-normal bg-slate-200 text-start">
+                              <div className="w-full min-h-10 font-normal flex flex-col items-center justify-center py-2">
+                                <div className="font-normal text-start">
                                   {conf.adults} Adultos
                                 </div>
-                                <div className="inline font-normal bg-slate-200 text-start">
+                                <div className="inline font-normal text-start">
                                   {conf.children} Niños
                                 </div>
                               </div>
@@ -329,7 +333,7 @@ export default function Component() {
                             type="checkbox"
                             name=""
                             id="disponSelected"
-                            className="w-4 h-4 cursor-pointer"
+                            className="w-4 h-4 cursor-pointer rounded-[4px]"
                           />
                           <div className="flex gap-2 items-center justify-center">
                             <div className="bg-green-500 text-white px-2 py-px rounded text-sm">
@@ -357,7 +361,7 @@ export default function Component() {
                         visibleItems[dayIndex] ? "max-h-screen" : "max-h-0"
                       }`}
                     >
-                      <table>
+                      <table className="border-y-px border-x-0">
                         <thead>
                           <tr className="p-4">
                             <th className="p-0">
