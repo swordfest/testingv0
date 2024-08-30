@@ -129,7 +129,10 @@ export default function Component() {
               className="w-full border rounded p-2"
               defaultValue=""
             >
-              <option value="" disabled>
+              <option value="" disabled selected hidden>
+                Selecciona el contrato
+              </option>
+              <option value="a">
                 Contrato Melia Hotels
               </option>
             </select>
@@ -256,7 +259,7 @@ export default function Component() {
                         </span>
                         <ChevronDown
                           className={`w-4 h-4 transition-all ${
-                            visibleItems[dayIndex] ? "rotate-0" : "rotate-180"
+                            visibleItems[dayIndex] ? "rotate-180" : "rotate-0"
                           }`}
                         />
                       </div>
@@ -267,8 +270,8 @@ export default function Component() {
                     </div>
                   </div>
                   <div
-                    className={`w-full h-auto bg-white flex-col text-black ${
-                      visibleItems[dayIndex] ? "flex" : "hidden"
+                    className={`w-full origin-top transition-all duration-500 ease-in-out bg-white flex-col text-black ${
+                      visibleItems[dayIndex] ? "max-h-screen" : 'max-h-0'
                     }`}
                   >
                     {/* <span className="w-full text-sm p-4">Configuración</span> */}
@@ -335,8 +338,8 @@ export default function Component() {
                       </div>
                     </div>
                     <div
-                      className={`w-full h-auto bg-white flex flex-col text-black font-normal ${
-                        visibleItems[dayIndex] ? "flex" : "hidden"
+                      className={`w-full bg-white flex flex-col origin-top transition-all duration-500 ease-in-out overflow-hidden text-black font-normal ${
+                        visibleItems[dayIndex] ? "max-h-screen" : 'max-h-0'
                       }`}
                     >
                       <table>
@@ -365,7 +368,7 @@ export default function Component() {
                                       {p.netPrice}
                                     </div>
                                   </div>
-                                  <div className="flex items-center justify-between">
+                                  <div className="flex items-center justify-between"> 
                                     <div className="font-semibold">Venta</div>
                                     <div className="font-normal">
                                       {p.salePrice}
