@@ -285,7 +285,7 @@ export default function Component() {
                     </div>
                   </div>
                   <div
-                    className={`w-full origin-top transition-all duration-500 ease-in-out bg-white flex-col text-black ${
+                    className={`w-full origin-top transition-all duration-500 ease-in-out bg-white flex-col text-black overflow-hidden ${
                       visibleItems[dayIndex] ? "max-h-screen" : "max-h-0"
                     }`}
                   >
