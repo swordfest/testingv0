@@ -119,8 +119,17 @@ export default function Component() {
         <Button variant="destructive">Salir del Calendario</Button>
       </div>
 
-      <div className={`p-4 border-b text-black lg:h-auto ${expanded ? 'h-auto' : 'h-12'}`}>
-        <h2 onClick={() => toggleExpanded()} className="text-lg font-semibold mb-2">Filtros</h2>
+      <div
+        className={`p-4 border-b text-black lg:h-auto ${
+          expanded ? "h-auto" : "h-12"
+        }`}
+      >
+        <h2
+          onClick={() => toggleExpanded()}
+          className="text-lg font-semibold mb-2"
+        >
+          Filtros
+        </h2>
         <div className="flex flex-wrap gap-4">
           <div className="w-64">
             {/* <Select> */}
@@ -132,9 +141,7 @@ export default function Component() {
               <option value="" disabled selected hidden>
                 Selecciona el contrato
               </option>
-              <option value="a">
-                Contrato Melia Hotels
-              </option>
+              <option value="a">Contrato Melia Hotels</option>
             </select>
             {/* </Select> */}
           </div>
@@ -236,60 +243,68 @@ export default function Component() {
           <tbody>
             {days.map((day, dayIndex) => (
               <tr key={dayIndex} className="bg-gray-50">
-                <td className="sticky h-auto left-0 bg-gray-50">
-                  <div className="item-disp-wrapper p-2 min-w-[200px] flex gap-2">
-                    <div className="wrapper min-h-52">
-                      <div className="wrapper-date-actions flex items-start justify-between">
-                        <div className="wrapper-date-day flex flex-col items-end">
-                          <div className="font-semibold text-black">{day}</div>
-                          <div className="text-sm text-gray-500 capitalize">
-                            26 Jul 2024
+                <td className="sticky h-auto left-0 bg-gray-50 p-0">
+                  <div className="day-wrapper p-2">
+                    <div className="item-disp-wrapper min-w-[200px] flex gap-2">
+                      <div className="wrapper min-h-52">
+                        <div className="wrapper-date-actions flex items-start justify-between">
+                          <div className="wrapper-date-day flex flex-col items-end">
+                            <div className="font-semibold text-black">
+                              {day}
+                            </div>
+                            <div className="text-sm text-gray-500 capitalize">
+                              26 Jul 2024
+                            </div>
                           </div>
+                          <MoreVertical className="w-5 h-5 text-gray-400" />
                         </div>
-                        <MoreVertical className="w-5 h-5 text-gray-400" />
+                        <div
+                          onClick={() => {
+                            toggleVisibility(dayIndex);
+                          }}
+                          className="flex flex-col items-center py-2 text-gray-500 gap-2 cursor-pointer"
+                        >
+                          <span className="text-center text-sm">
+                            Mostrar Configuraciones
+                          </span>
+                          <ChevronDown
+                            className={`w-4 h-4 transition-all ${
+                              visibleItems[dayIndex] ? "rotate-180" : "rotate-0"
+                            }`}
+                          />
+                        </div>
                       </div>
-                      <div
-                        onClick={() => {
-                          toggleVisibility(dayIndex);
-                        }}
-                        className="flex flex-col items-center py-2 text-gray-500 gap-2 cursor-pointer"
-                      >
-                        <span className="text-center text-sm">
-                          Mostrar Configuraciones
-                        </span>
-                        <ChevronDown
-                          className={`w-4 h-4 transition-all ${
-                            visibleItems[dayIndex] ? "rotate-180" : "rotate-0"
-                          }`}
-                        />
+                      <div className="timeline-wrapper-draw flex flex-col items-center justify-start gap-4">
+                        <div className=" circle w-4 h-4 shrink-0 border-2 border-[#005B7F] rounded-full"></div>
+                        <div className=" vertical-line w-[1.5px] h-full bg-[#919EAB] bg-opacity-20"></div>
                       </div>
-                    </div>
-                    <div className="timeline-wrapper-draw flex flex-col items-center justify-start gap-4">
-                      <div className=" circle w-4 h-4 shrink-0 border-2 border-[#005B7F] rounded-full"></div>
-                      <div className=" vertical-line w-[1.5px] h-full bg-[#919EAB] bg-opacity-20"></div>
                     </div>
                   </div>
                   <div
                     className={`w-full origin-top transition-all duration-500 ease-in-out bg-white flex-col text-black ${
-                      visibleItems[dayIndex] ? "max-h-screen" : 'max-h-0'
+                      visibleItems[dayIndex] ? "max-h-screen" : "max-h-0"
                     }`}
                   >
                     {/* <span className="w-full text-sm p-4">Configuración</span> */}
-                    <table>
+                    <table className="w-full">
                       <thead>
                         <tr className="p-4">
-                          <th>
-                            <div className="h-8 flex items-center justify-center font-semibold">
+                          <th className="p-0">
+                            <div className="h-8 flex items-center justify-center font-semibold text-start">
                               Configuración
                             </div>
                           </th>
                         </tr>
                         {configurations.map((conf, confIndex) => (
                           <tr key={confIndex}>
-                            <th className="border border-b-px border-x-0 border-slate-300 border-dashed ">
-                              <div className="min-h-10 font-normal">
-                                {conf.adults} Adultos <br />
-                                {conf.children} Niños
+                            <th className="border border-b-px border-x-0 border-slate-300 border-dashed p-0">
+                              <div className="w-full min-h-10 bg-blue-50 font-normal flex flex-col items-center justify-center py-2">
+                                <div className="font-normal bg-slate-200 text-start">
+                                  {conf.adults} Adultos
+                                </div>
+                                <div className="inline font-normal bg-slate-200 text-start">
+                                  {conf.children} Niños
+                                </div>
                               </div>
                             </th>
                           </tr>
@@ -339,13 +354,13 @@ export default function Component() {
                     </div>
                     <div
                       className={`w-full bg-white flex flex-col origin-top transition-all duration-500 ease-in-out overflow-hidden text-black font-normal ${
-                        visibleItems[dayIndex] ? "max-h-screen" : 'max-h-0'
+                        visibleItems[dayIndex] ? "max-h-screen" : "max-h-0"
                       }`}
                     >
                       <table>
                         <thead>
                           <tr className="p-4">
-                            <th>
+                            <th className="p-0">
                               <div className="wrapper-header h-8 px-2 flex gap-4 items-center justify-between">
                                 <div className="font-normal">Valores</div>
                                 <div className="wrapper-valores flex gap-2 items-center justify-center">
@@ -360,7 +375,7 @@ export default function Component() {
                           </tr>
                           {prices.map((p, priceIndex) => (
                             <tr key={priceIndex}>
-                              <th className="border border-b-px border-x-0 border-slate-300 border-dashed ">
+                              <th className="border border-b-px border-x-0 border-slate-300 border-dashed py-2 ">
                                 <div className="wrapper-precios min-h-10 px-2">
                                   <div className="flex items-center justify-between">
                                     <div className="font-semibold">Neto</div>
@@ -368,7 +383,7 @@ export default function Component() {
                                       {p.netPrice}
                                     </div>
                                   </div>
-                                  <div className="flex items-center justify-between"> 
+                                  <div className="flex items-center justify-between">
                                     <div className="font-semibold">Venta</div>
                                     <div className="font-normal">
                                       {p.salePrice}
