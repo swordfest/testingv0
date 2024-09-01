@@ -15,7 +15,6 @@ import {
   SortDesc,
   Tag,
 } from "lucide-react";
-import { useDraggable } from "react-use-draggable-scroll";
 import useScrollOnDrag from "@/lib/useScrollOnDrag";
 import useScrollOnDragHorz from "@/lib/useScrollOnDragHorz";
 
