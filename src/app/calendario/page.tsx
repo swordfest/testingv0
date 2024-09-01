@@ -1,7 +1,7 @@
 /* eslint-disable @next/next/no-img-element */
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
 // import { Select } from "@/components/ui/select"
@@ -15,6 +15,9 @@ import {
   SortDesc,
   Tag,
 } from "lucide-react";
+import { useDraggable } from "react-use-draggable-scroll";
+import useScrollOnDrag from "@/lib/useScrollOnDrag";
+import useScrollOnDragHorz from "@/lib/useScrollOnDragHorz";
 
 const roomTypes = [
   { name: "Standard", count: 99, image: "/placeholder.svg?height=50&width=50" },
@@ -81,6 +84,284 @@ const prices = [
   },
 ];
 
+const hotelContracts = [
+  {
+    id: 1,
+    name: "Contrato Nacional de Cuba",
+    contractName: "HTN",
+    roomTypes: [
+      {
+        id: 1,
+        name: "Standard",
+        count: 99,
+        image: "/placeholder.svg?height=50&width=50",
+      },
+      {
+        id: 2,
+        name: "Deluxe",
+        count: 98,
+        image: "/placeholder.svg?height=50&width=50",
+      },
+      {
+        id: 3,
+        name: "Suite",
+        count: 97,
+        image: "/placeholder.svg?height=50&width=50",
+      },
+      {
+        id: 4,
+        name: "Junior Suite",
+        count: 96,
+        image: "/placeholder.svg?height=50&width=50",
+      },
+      {
+        id: 5,
+        name: "Executive Room",
+        count: 95,
+        image: "/placeholder.svg?height=50&width=50",
+      },
+      {
+        id: 6,
+        name: "Standard Room",
+        count: 94,
+        image: "/placeholder.svg?height=50&width=50",
+      },
+      {
+        id: 7,
+        name: "Deluxe City View",
+        count: 93,
+        image: "/placeholder.svg?height=50&width=50",
+      },
+      {
+        id: 8,
+        name: "Oceanview",
+        count: 92,
+        image: "/placeholder.svg?height=50&width=50",
+      },
+    ],
+  },
+  {
+    id: 2,
+    name: "Contrato de Hotel Capri",
+    contractName: "HCP",
+    roomTypes: [
+      {
+        id: 1,
+        name: "Junior Suite",
+        count: 98,
+        image: "/placeholder.svg?height=50&width=50",
+      },
+      {
+        id: 2,
+        name: "Executive Room",
+        count: 97,
+        image: "/placeholder.svg?height=50&width=50",
+      },
+      {
+        id: 3,
+        name: "President Suite",
+        count: 96,
+        image: "/placeholder.svg?height=50&width=50",
+      },
+      {
+        id: 4,
+        name: "Standard Room",
+        count: 95,
+        image: "/placeholder.svg?height=50&width=50",
+      },
+      {
+        id: 5,
+        name: "Deluxe City View",
+        count: 94,
+        image: "/placeholder.svg?height=50&width=50",
+      },
+      {
+        id: 6,
+        name: "Oceanview",
+        count: 93,
+        image: "/placeholder.svg?height=50&width=50",
+      },
+      {
+        id: 7,
+        name: "Suite Ocean View",
+        count: 92,
+        image: "/placeholder.svg?height=50&width=50",
+      },
+      {
+        id: 8,
+        name: "Deluxe Room",
+        count: 91,
+        image: "/placeholder.svg?height=50&width=50",
+      },
+    ],
+  },
+  {
+    id: 3,
+    name: "Contrato de Hotel Saratoga",
+    contractName: "HSA",
+    roomTypes: [
+      {
+        id: 1,
+        name: "Suite Ocean View",
+        count: 97,
+        image: "/placeholder.svg?height=50&width=50",
+      },
+      {
+        id: 2,
+        name: "Deluxe City View",
+        count: 96,
+        image: "/placeholder.svg?height=50&width=50",
+      },
+      {
+        id: 3,
+        name: "Standard Room",
+        count: 95,
+        image: "/placeholder.svg?height=50&width=50",
+      },
+      {
+        id: 4,
+        name: "Junior Suite",
+        count: 94,
+        image: "/placeholder.svg?height=50&width=50",
+      },
+      {
+        id: 5,
+        name: "Executive Room",
+        count: 93,
+        image: "/placeholder.svg?height=50&width=50",
+      },
+      {
+        id: 6,
+        name: "Deluxe Room",
+        count: 92,
+        image: "/placeholder.svg?height=50&width=50",
+      },
+      {
+        id: 7,
+        name: "Standard Suite",
+        count: 91,
+        image: "/placeholder.svg?height=50&width=50",
+      },
+      {
+        id: 8,
+        name: "Suite City View",
+        count: 90,
+        image: "/placeholder.svg?height=50&width=50",
+      },
+    ],
+  },
+  {
+    id: 4,
+    name: "Contrato de Hotel Vedado",
+    contractName: "HVD",
+    roomTypes: [
+      {
+        id: 1,
+        name: "Suite City View",
+        count: 99,
+        image: "/placeholder.svg?height=50&width=50",
+      },
+      {
+        id: 2,
+        name: "Deluxe Room",
+        count: 98,
+        image: "/placeholder.svg?height=50&width=50",
+      },
+      {
+        id: 3,
+        name: "Standard Suite",
+        count: 97,
+        image: "/placeholder.svg?height=50&width=50",
+      },
+      {
+        id: 4,
+        name: "Executive Room",
+        count: 96,
+        image: "/placeholder.svg?height=50&width=50",
+      },
+      {
+        id: 5,
+        name: "Oceanview",
+        count: 95,
+        image: "/placeholder.svg?height=50&width=50",
+      },
+      {
+        id: 6,
+        name: "Deluxe City View",
+        count: 94,
+        image: "/placeholder.svg?height=50&width=50",
+      },
+      {
+        id: 7,
+        name: "Junior Suite",
+        count: 93,
+        image: "/placeholder.svg?height=50&width=50",
+      },
+      {
+        id: 8,
+        name: "Standard Room",
+        count: 92,
+        image: "/placeholder.svg?height=50&width=50",
+      },
+    ],
+  },
+  {
+    id: 5,
+    name: "Contrato de Hotel Miramar",
+    contractName: "HMIR",
+    roomTypes: [
+      {
+        id: 1,
+        name: "Deluxe City View",
+        count: 98,
+        image: "/placeholder.svg?height=50&width=50",
+      },
+      {
+        id: 2,
+        name: "Oceanview",
+        count: 97,
+        image: "/placeholder.svg?height=50&width=50",
+      },
+      {
+        id: 3,
+        name: "Standard Suite",
+        count: 96,
+        image: "/placeholder.svg?height=50&width=50",
+      },
+      {
+        id: 4,
+        name: "Executive Room",
+        count: 95,
+        image: "/placeholder.svg?height=50&width=50",
+      },
+      {
+        id: 5,
+        name: "Suite City View",
+        count: 94,
+        image: "/placeholder.svg?height=50&width=50",
+      },
+      {
+        id: 6,
+        name: "Deluxe Room",
+        count: 93,
+        image: "/placeholder.svg?height=50&width=50",
+      },
+      {
+        id: 7,
+        name: "Junior Suite",
+        count: 92,
+        image: "/placeholder.svg?height=50&width=50",
+      },
+      {
+        id: 8,
+        name: "Standard Room",
+        count: 91,
+        image: "/placeholder.svg?height=50&width=50",
+      },
+    ],
+  },
+];
+
 export default function Component() {
   const [visibleItems, setVisibleItems] = useState(days.map(() => false));
   const [selectedRooms, setSelectedRooms] = useState(
@@ -88,6 +369,10 @@ export default function Component() {
   );
   const [expanded, setExpanded] = useState(false);
   const [selectedRoomIndex, setSelectedRoomIndex] = useState(0);
+  const [selectedContract, setSelectedContract] = useState(0);
+  const tableRef =
+    useRef<HTMLDivElement>() as React.MutableRefObject<HTMLDivElement>;
+  const { events } = useScrollOnDragHorz(tableRef);
 
   useEffect(() => {
     if (document.documentElement.clientWidth < 480) {
@@ -134,15 +419,23 @@ export default function Component() {
         <div className="flex flex-wrap gap-4">
           <div className="w-64">
             {/* <Select> */}
+
             <select
               title="a"
-              className="w-full border rounded p-2"
-              defaultValue=""
+              className="w-full border rounded p-2 form-select "
+              defaultValue={hotelContracts[0].id}
+              onChange={(e: any) => {
+                setSelectedContract(e.target?.value);
+              }}
             >
-              <option value="" disabled selected hidden>
+              <option value={hotelContracts[0].id} hidden>
                 Selecciona el contrato
               </option>
-              <option value="a">Contrato Melia Hotels</option>
+              {hotelContracts.map((contract, index) => (
+                <option value={contract.id} key={index}>
+                  {contract.name}
+                </option>
+              ))}
             </select>
             {/* </Select> */}
           </div>
@@ -151,11 +444,16 @@ export default function Component() {
             <select
               title="a"
               className="w-full border rounded p-2"
-              defaultValue=""
+              defaultValue="roomstype"
             >
-              <option value="" disabled>
-                Tipos de Habitaciones
+              <option value="roomstype" hidden>
+                Selecciona la habitación
               </option>
+              {roomTypes.map((room, index) => (
+                <option key={index} value={index}>
+                  {room.name}
+                </option>
+              ))}
             </select>
             {/* </Select> */}
           </div>
@@ -184,10 +482,11 @@ export default function Component() {
       </div>
 
       <div
-        className="relative overflow-auto"
-        style={{ height: "calc(100vh - 180px)" }}
+        {...events}
+        ref={tableRef}
+        className="relative overflow-auto h-[calc(100vh-180px)]"
       >
-        <table className="w-full border-collapse">
+        <table className="w-full border-collapse cursor-pointer select-none">
           <thead>
             <tr className="sticky top-0 z-10 text-black">
               <th className="sticky left-0 top-0 z-20 bg-gray-50 p-4 min-w-[200px]">
